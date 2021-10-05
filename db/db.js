@@ -1,8 +1,13 @@
-//mongodb+srv://MAM:<password>@cluster0.8hqxe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+//importer le package pour utiliser les variables d'environnement
+const dotenv = require("dotenv");
+const result = dotenv.config();
 
+//importer mogoose pour ce connecter à la bse de donnée de MongoDB
 const mongoose = require("mongoose");
-mongoose.connect(
-  "mongodb+srv://MAM:hop2npJ8LzLn@cluster0.8hqxe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-    .then(() => console.log("Connexion à MongoDB réussi"))
-    .catch(() => console.log("Connexion à MongoDB échoué"));
+mongoose
+  .connect(
+    `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
+  )
+  .then(() => console.log("Connexion à MongoDB réussi"))
+  .catch(() => console.log("Connexion à MongoDB échoué"));
 module.exports = mongoose;

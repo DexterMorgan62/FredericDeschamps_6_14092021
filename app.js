@@ -6,7 +6,7 @@ const morgan = require("morgan");
 const mongoose = require("./db/db");
 
 // importation routes
-const userRoutes = require("/routes/user");
+const userRoutes = require("./routes/user");
 const { Mongoose } = require("mongoose");
 
 const app = express();
