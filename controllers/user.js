@@ -5,12 +5,12 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 //fonction signup enregistrer nouveau utilisateur
-exports.signup = (req, res, next) => {
+exports.signup = (req, res) => {
   console.log(req.body);
   bcrypt
-    .hash(req.body.passord, 10)
+    .hash(req.body.password, 10)
     .then((hash) => {
-      const user = new user({
+      const user = new User({
         email: req.body.email,
         password: hash,
       });
@@ -22,7 +22,7 @@ exports.signup = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 //fonction login connexion utilisateur
-exports.login = (req, res, next) => {
+exports.login = (req, res) => {
   console.log(req.body);
   User.findOne({ email: req.body.email })
     .then((user) => {
@@ -30,7 +30,7 @@ exports.login = (req, res, next) => {
         return res.status(401).json({ error: "Utilisateur non trouvé ! " });
       }
       bcrypt
-        .compare(req.body.passord, user.passord)
+        .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
             return res.status(401).json({ error: "Mot de passe incorrect ! " });
