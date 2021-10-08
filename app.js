@@ -11,6 +11,9 @@ const { Mongoose } = require("mongoose");
 
 const app = express();
 
+// debug Mongoose
+mongoose.set("debug", true);
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
