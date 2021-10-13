@@ -7,10 +7,11 @@ const mongoose = require("./db/db");
 
 // importation routes
 const userRoutes = require("./routes/user");
+const sauceRoutes = require("./routes/sauce");
+
 const { Mongoose } = require("mongoose");
-
 const app = express();
-
+const path = require("path");
 // debug Mongoose
 mongoose.set("debug", true);
 
@@ -26,6 +27,7 @@ app.use((req, res, next) => {
   );
   next();
 });
+
 // log requetes responses
 app.use(morgan("dev"));
 
@@ -34,4 +36,6 @@ app.use(express.json());
 
 app.use("/api/auth", userRoutes);
 
+app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/api/sauces", sauceRoutes);
 module.exports = app;

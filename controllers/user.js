@@ -1,9 +1,8 @@
 //importation model user.js
-//conts user = require("../models/user");
-
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+
 //fonction signup enregistrer nouveau utilisateur
 exports.signup = (req, res) => {
   console.log(req.body);
@@ -21,6 +20,7 @@ exports.signup = (req, res) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
+
 //fonction login connexion utilisateur
 exports.login = (req, res) => {
   console.log(req.body);
