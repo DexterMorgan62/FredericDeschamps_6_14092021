@@ -35,9 +35,12 @@ exports.login = (req, res) => {
           if (!valid) {
             return res.status(401).json({ error: "Mot de passe incorrect ! " });
           }
+          //Le mot de passe est correct
+          //envoie dans la response du serveur du userId et du token d'authentification
           res.status(200).json({
             userId: user._id,
-            token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
+            //encodage du userId pour la création d'un nouvel objet (objet et userId liés)
+            token: jwt.sign({ userId: user._id },`${process.env.JWT_KEY_TOKEN}`, {
               expiresIn: "24h",
             }),
           });
