@@ -2,7 +2,7 @@
 const dotenv = require("dotenv");
 const result = dotenv.config();
 
-//importer mogoose pour ce connecter à la bse de donnée de MongoDB
+//importer mogoose pour ce connecter à la base de donnée de MongoDB
 const mongoose = require("mongoose");
 mongoose
   .connect(
