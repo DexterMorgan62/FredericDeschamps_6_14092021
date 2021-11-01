@@ -53,7 +53,7 @@ DB_USERNAME = "xxxx"
 DB_PASSWORD = "xxxx"
 DB_CLUSTER = "clusterX.XXX"
 DB_NAME ="xxxx"
-JWT_KEY_TOKEN ="mettre une clé forte"
+JWT_KEY_TOKEN ="put a strong key"
 ```
 
 ## Usage <a name = "usage"></a>
