@@ -8,7 +8,6 @@ const Sauce = require("../models/sauce");
 
 //fonction addSauce enregistrer nouvelle sauce
 exports.createSauce = (req, res) => {
-
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
   const sauce = new Sauce({
@@ -20,55 +19,40 @@ exports.createSauce = (req, res) => {
   sauce
     .save()
     .then((sauce) => res.status(201).json({ message: "Sauce ajoutée" }))
-    .catch((error) => res.status(400).json({ message:error }));
-    console.log(sauceObject._id);
-    console.log(sauceObject);
+    .catch((error) => res.status(400).json({ message: error }));
+  console.log(sauceObject._id);
+  console.log(sauceObject);
 };
 
 exports.modifySauce = (req, res) => {
   // Récupérer les données de la requête
-  const sauceObject = req.file
+  const sauceObject = req.file // Opérateur ternaire pour vérifier image (req.file)
     ? {
+        // Si image existe
         ...JSON.parse(req.body.sauce),
         imageUrl: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
       }
-    : { ...req.body };
+    : { ...req.body }; // Si image n'existe pas
+  console.log(req.file);
 
-  // Si il y a une image
-  if (req.file) {
-    Sauce.findOne({ _id: req.params.id }).then((sauce) => {
-      const filename = sauce.imageUrl.split("/images/")[1]; // Nom de l'image dans le dossier /images/
-      fs.unlink(`images/${filename}`, () => {
-        // Supprimer l'image
-        // Mettre à jour la Sauce
-        sauce
-          .updateOne(
-            { _id: req.params.id },
-            { ...req.body, _id: req.params.id }
-          )
-          .then(() => res.status(200).json({ message: "Sauce modifiée" }))
-          .catch((error) => res.status(400).json({ error }));
-      });
+  Sauce.findOne({ _id: req.params.id }).then((sauce) => {
+    const filename = sauce.imageUrl.split("/images/")[1]; // Nom de l'image dans le dossier /images/
+    console.log(filename);
+    fs.unlink(`images/${filename}`, () => {
+      // Supprimer l'image
+      // Mettre à jour la Sauce
+      console.log(req.body);
+      sauce
+        .updateOne(
+          { _id: req.params.id },
+          { ...sauceObject, _id: req.params.id }
+        )
+        .then(() => res.status(200).json({ message: "Sauce modifiée" }))
+        .catch((error) => res.status(400).json({ error }));
     });
-  } else {
-    // Si il n'y a pas d'image
-    // Mettre à jour la Sauce
-    Sauce.updateOne(
-      {
-        _id: req.params.id,
-      },
-      {
-        ...sauceObject,
-        _id: req.params.id,
-      }
-    )
-      .then((sauce) =>
-        res.status(200).json({ message: "La sauce a bien été modifiée !" })
-      )
-      .catch((error) => res.status(400).json({ error }));
-  }
+  });
 };
 
 exports.deleteSauce = (req, res) => {
