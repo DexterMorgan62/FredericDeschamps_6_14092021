@@ -44,11 +44,10 @@ exports.modifySauce = (req, res) => {
       // Supprimer l'image
       // Mettre à jour la Sauce
       console.log(req.body);
-      sauce
-        .updateOne(
-          { _id: req.params.id },
-          { ...sauceObject, _id: req.params.id }
-        )
+      Sauce.updateOne(
+        { _id: req.params.id },
+        { ...sauceObject, _id: req.params.id }
+      )
         .then(() => res.status(200).json({ message: "Sauce modifiée" }))
         .catch((error) => res.status(400).json({ error }));
     });
