@@ -65,7 +65,7 @@ Run `npm start`. This should both run the local server and launch your browser.
 If your browser fails to launch, or shows a 404 error, navigate your browser to
 
 ```
-http://localhost:8081
+http://localhost:4200
 ```
 
 The app should reload automatically when you make a change to a file.

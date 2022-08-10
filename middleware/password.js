@@ -9,7 +9,7 @@ const passwordSchema = new PasswordValidator();
 // le shéma doit respecter le mot de passe
 passwordSchema
   .is()
-  .min(5) // Minimum length 8
+  .min(5) // Minimum length 5
   .is()
   .max(100) // Maximum length 100
   .has()
