@@ -9,5 +9,5 @@ mongoose
     `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
   )
   .then(() => console.log("Successful connection to MongoDB"))
-  .catch(() => console.log("Connection to MongoDB failed"));
+  .catch((err) => console.log("Connection to MongoDB failed", err));
 module.exports = mongoose;
