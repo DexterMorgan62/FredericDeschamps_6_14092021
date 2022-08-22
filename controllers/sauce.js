@@ -100,9 +100,7 @@ exports.opinionSauce = (req, res) => {
               }
             )
               .then(() =>
-                res
-                  .status(201)
-                  .json({ message: "Ton avis a été pris en compte!" })
+                res.status(201).json({ message: "Ton like a été retiré!" })
               )
               .catch((error) => res.status(400).json({ error }));
           }
@@ -117,9 +115,7 @@ exports.opinionSauce = (req, res) => {
               }
             )
               .then(() =>
-                res
-                  .status(201)
-                  .json({ message: "Ton avis a été pris en compte!" })
+                res.status(201).json({ message: "Ton dislike a été retiré!" })
               )
               .catch((error) => res.status(400).json({ error }));
           }
